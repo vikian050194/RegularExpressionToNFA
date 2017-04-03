@@ -32,7 +32,9 @@ cytoscapeFactory.prototype.getInstance = function () {
                     'target-arrow-color': 'DarkGray',
                     'line-color': 'DarkGray',
                     'curve-style': 'bezier',
-                    'label': 'data(label)'
+                    'label': 'data(label)',
+                    'text-outline-color': 'DarkGray',
+                    'text-outline-width': 3
                     // 'edge-text-rotation': 'autorotate'
                 }
             },
