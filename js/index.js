@@ -1,6 +1,6 @@
 $(function () {
     $(document).ready(function () {
-        var cy = window.cy = new cytoscapeFactory().getInstance();
+        //var cy = new cytoscapeFactory().getInstance();
 
         $("button").click(function () {
             draw();
@@ -11,14 +11,19 @@ $(function () {
                 draw();
             }
         });
-        var regexp = "(" + '((A*B|AC)D)' + ")";
-        var txt = 'ABD';
-        var nfa = new NFA(regexp);
-        nfa.graph.layout({
+        var regexp = '((A*B|AC)D)';
+        //var regexp = '(.*AB((C|D*E)F)*G)';
+        var txt = 'AABD';
+        var nfa = new NFA(regexp, false);
+        alert(nfa.Recognize(txt));
+        //nfs.graph.nodes()
+        var nfa_vis = new NFA(regexp, true);
+        
+        nfa_vis.graph.layout({
             name: 'dagre'
         });
-
-        console.log(nfa.Recognize(txt));
+        
+        
         function draw() {
             var line = $('input').val();
 
