@@ -34,7 +34,7 @@ cytoscapeFactory.prototype.getInstance = function () {
                     'curve-style': 'bezier',
                     'label': 'data(label)',
                     'text-outline-color': 'DarkGray',
-                    'text-outline-width': 3
+                    'text-outline-width': 0
                     // 'edge-text-rotation': 'autorotate'
                 }
             },
