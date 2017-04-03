@@ -1,75 +1,51 @@
 $(function () {
     $(document).ready(function () {
-        var cy = window.cy = cytoscape({
-            container: document.getElementById('main-container'),
-            boxSelectionEnabled: false,
-            autounselectify: true,
-            layout: {
-                name: 'dagre'
-            },
-            style: [
-                {
-                    selector: 'node',
-                    style: {
-                        'content': 'data(id)',
-                        'text-valign': 'center',
-                        'text-halign': 'center',
-                        'background-color': 'DeepSkyBlue',
-                        'border-width': 2,
-                        'border-style': 'solid',
-                        'border-color': 'black'
-                    }
-                },
-                {
-                    selector: 'edge',
-                    style: {
-                        'width': 4,
-                        'target-arrow-shape': 'triangle',
-                        'target-arrow-color': 'DeepSkyBlue',
-                        'line-color': 'DeepSkyBlue',
-                        'curve-style': 'bezier',
-                        'label': 'data(label)',
-                        'edge-text-rotation': 'autorotate'
-                    }
-                },
-                {
-                    selector: '.start',
-                    style: {
-                        'background-color': 'OrangeRed'
-                    }
-                },
-                {
-                    selector: '.finish',
-                    style: {
-                        'background-color': 'YellowGreen'
-                    }
-                },
-            ],
-            elements: [
-                { data: { id: 'q0' }, classes: 'start' },
-                { data: { id: 'q2' } },
-                { data: { id: 'q3' } },
-                { data: { id: 'q4' } },
-                { data: { id: 'q1' }, classes: 'finish' },
-                { data: { source: 'q0', target: 'q2', label: 'E' } },
-                { data: { source: 'q2', target: 'q2', label: 'a' } },
-                { data: { source: 'q2', target: 'q3', label: 'b' } },
-                { data: { source: 'q3', target: 'q2', label: 'f' } },
-                { data: { source: 'q3', target: 'q4', label: 't' } },
-                { data: { source: 'q3', target: 'q1', label: 'c' } }
-            ],
+        var cy = window.cy = new cytoscapeFactory().getInstance();
+
+        $("button").click(function () {
+            draw();
         });
 
-        var dfs = cy.elements().dfs({
-            roots: '#q0',
-            directed: true
-        });
-
-        for (var i = 1; i < dfs.path.length; i++) {
-            var e = dfs.path[i];
-            if (e.isNode()) {
-                console.log(e.id());
+        $('input').keydown(function (e) {
+            if (e.keyCode === 13) {
+                draw();
             }
+        });
+
+        function draw() {
+            var elements = [
+                { data: { id: 'q0' }, classes: 'start' },
+                { data: { id: 'q1' }, classes: 'finish' },
+                { data: { source: 'q0', target: 'q1', label: 'a' } },
+            ];
+
+            for (var i = 0; i < elements.length; i++) {
+                var element = elements[i];
+                cy.add(element);
+            }
+            // elements.forEach(cy.add);
+
+            cy.layout({
+                name: 'dagre'
+            }).run();
         }
+
+        function dfs(root) {
+            var dfs = cy.elements().dfs({
+                roots: '#' + root,
+                directed: true
+            });
+            var result = [];
+            for (var i = 1; i < dfs.path.length; i++) {
+                var e = dfs.path[i];
+                if (e.isNode()) {
+                    result.push(e.id());
+                }
+            }
+            console.log(result);
+            return result;
+        }
+
+        // dfs('q0');
     });
 });

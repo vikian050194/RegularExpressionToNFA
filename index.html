@@ -5,32 +5,31 @@
 <head>
 	<title>Regular Expression To NFA</title>
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+	<link rel="shortcut icon" href="icon.png" />
 	<link href="css/bootstrap.css" rel="stylesheet">
 	<link href="css/bootstrap-theme.css" rel="stylesheet">
 	<link href="css/index.css" rel="stylesheet">
-	<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
 	<script src="js/jquery-2.2.4.js"></script>
 	<script src="js/bootstrap.js"></script>
 	<script src="js/cytoscape.js"></script>
+	<script src="js/cytoscape-factory.js"></script>
 	<script src="js/index.js"></script>
-	<script src="https://cdn.rawgit.com/cpettitt/dagre/v0.7.4/dist/dagre.min.js"></script>
-	<script src="https://cdn.rawgit.com/cytoscape/cytoscape.js-dagre/1.1.2/cytoscape-dagre.js"></script>
+	<script src="js/dagre/dagre.js"></script>
+	<script src="js/dagre/cytoscape-dagre.js"></script>
 </head>
 
 <body>
-	<div class="navbar navbar-default navbar-fixed-top">
+	<div id="form-area">
 		<div class="container">
-			<div class="nav navbar-nav navbar-right">
-				<form class="navbar-form navbar-left">
-					<div class="form-group">
-						<input type="text" class="form-control" placeholder="placeholder">
-					</div>
-					<button type="submit" class="btn btn-primary">Draw</button>
-				</form>
+			<div class="input-group">
+				<input type="text" class="form-control" placeholder="Please type regular expression...">
+				<span class="input-group-btn">
+					<button class="btn btn-default" type="button">Draw NFA</button>
+				</span>
 			</div>
 		</div>
 	</div>
-	<div id="main-container" class="body-content"></div>
+	<div id="graph-area" class=""></div>
 </body>
 
 </html>
