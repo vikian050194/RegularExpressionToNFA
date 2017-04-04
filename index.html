@@ -1,34 +1,53 @@
 <!DOCTYPE html>
 
 <html>
-    <head>
-        <title>Regular Expression To NFA</title>
-        <meta charset="utf-8" name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
-        <link rel="shortcut icon" href="icon.png" />
-        <link href="css/bootstrap.css" rel="stylesheet">
-        <link href="css/bootstrap-theme.css" rel="stylesheet">
-        <link href="css/index.css" rel="stylesheet">
-        <script src="js/jquery-2.2.4.js"></script>
-        <script src="js/bootstrap.js"></script>
-        <script src="js/cytoscape.js"></script>
-        <script src="js/dagre/dagre.js"></script>
-        <script src="js/dagre/cytoscape-dagre.js"></script>
-        <script src="js/cytoscape-factory.js"></script>
-        <script src="js/nfa.js"></script>
-        <script src="js/index.js"></script>
-    </head>
 
-    <body>
-        <div id="form-area">
-            <div class="container">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Please type regular expression...">
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" type="button">Draw NFA</button>
-                    </span>
-                </div>
+<head>
+    <title>Regular Expression To NFA</title>
+    <meta charset="utf-8" name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="icon.png" />
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/bootstrap-theme.css" rel="stylesheet">
+    <link href="css/index.css" rel="stylesheet">
+    <script src="js/jquery-2.2.4.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/cytoscape.js"></script>
+    <script src="js/dagre/dagre.js"></script>
+    <script src="js/dagre/cytoscape-dagre.js"></script>
+    <script src="js/cytoscape-cose-bilkent.js"></script>
+    <script src="js/cytoscape-factory.js"></script>
+    <script src="js/nfa.js"></script>
+    <script src="js/index.js"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-default">
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Visualization<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li class=""><a href="">random</a></li>
+                        <li class=""><a href="">preset</a></li>
+                        <li class=""><a href="">grid</a></li>
+                        <li class="active"><a href="">circle</a></li>
+                        <li class=""><a href="">concentric</a></li>
+                        <li class=""><a href="">breadthfirst</a></li>
+                        <li class=""><a href="">cose</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li class=""><a href="">dagre</a></li>
+                        <li class=""><a href="">cose-bilkent</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="navbar-form navbar-left">
+                <input id="regexp" type="text" class="form-control" placeholder="Regexp...">
+                <input id="text" type="text" class="form-control" placeholder="Text...">
+                <button class="btn btn-default">Run</button>
             </div>
         </div>
-        <div id="graph-area" class=""></div>
-    </body>
+    </nav>
+    <div id="graph-area" class=""></div>
+</body>
+
 </html>

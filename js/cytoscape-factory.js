@@ -8,14 +8,14 @@ cytoscapeFactory.prototype.getInstance = function () {
         boxSelectionEnabled: false,
         autounselectify: true,
         wheelSensitivity: 0.05,
-        layout: {
-            name: 'dagre'
+        layout: { 
+            name: 'null'
         },
         style: [
             {
                 selector: 'node',
                 style: {
-                    'content': 'data(id)',
+                    'content': 'data(label)',
                     'text-valign': 'center',
                     'text-halign': 'center',
                     'background-color': 'DarkGray',

@@ -4,14 +4,16 @@ function NFA(regexp, for_visual) {
 
 	var ops = new Array();
 	this.graph = new cytoscapeFactory().getInstance();
-    
-    //TODO: make lables with letters
-	for (var i = 0; i < this.m; i++) {
+
+	//TODO: make lables with letters
+	this.graph.add({ data: { id: 0, label: regexp.charAt(0) }, classes: 'start' });
+
+	for (var i = 1; i < this.m; i++) {
 		this.graph.add({ data: { id: i, label: regexp.charAt(i) } });
 	}
-	this.graph.add({ data: { id: this.m, label: 'fin' } });
+	this.graph.add({ data: { id: this.m, label: 'fin' }, classes: 'finish' });
 
-    console.log(this.graph.nodes()[0]);
+	console.log(this.graph.nodes()[0]);
 	for (var i = 0; i < this.m; i++) {
 		var lp = i;
 
@@ -38,13 +40,13 @@ function NFA(regexp, for_visual) {
 
 		if (regexp.charAt(i) == '(' || regexp.charAt(i) == '*' || regexp.charAt(i) == ')')
 			this.graph.add({ data: { source: i, target: i + 1, label: 'ε' } });
-        else if (for_visual && (regexp.charAt(i) != '|'))  
-             this.graph.add({ data: { source: i, target: i + 1, label: regexp.charAt(i) } });
+		else if (for_visual && (regexp.charAt(i) != '|'))
+			this.graph.add({ data: { source: i, target: i + 1, label: regexp.charAt(i) } });
 	}
 
 	if (ops.length != 0)
 		throw "Invalid regular expression";
-    
+
 }
 
 NFA.prototype.DFS = function (root, cy) {
@@ -66,8 +68,8 @@ NFA.prototype.DFS = function (root, cy) {
 NFA.prototype.Recognize = function (txt) {
 	// var dfs = new DirectedDFS(this.graph, 0);
 	var pc = this.DFS(0, this.graph);
-    //console.log();
-    console.log("eps = " + pc);
+	//console.log();
+	console.log("eps = " + pc);
 	// Compute possible NFA states for txt[i+1]
 	for (var i = 0; i < txt.length; i++) {
 		if (txt.charAt(i) == '*' || txt.charAt(i) == '|' || txt.charAt(i) == '(' || txt.charAt(i) == ')')
@@ -80,25 +82,25 @@ NFA.prototype.Recognize = function (txt) {
 			if ((this.regexp.charAt(pc[j]) == txt.charAt(i)) || this.regexp.charAt(pc[j]) == '.')
 				match.push(+pc[j] + 1);
 		}
-        
-        console.log("match= " + match);
+
+		console.log("match= " + match);
 
 		pc = new Array();
 		for (var k = 0; k < match.length; k++) {
 			var arch_vertices = this.DFS(match[k], this.graph);
-            //console.log("arch"+arch_vertices+"arch");
+			//console.log("arch"+arch_vertices+"arch");
 			for (var j = 0; j < arch_vertices.length; j++) {
-					pc.push(arch_vertices[j]);
+				pc.push(arch_vertices[j]);
 			}
 		}
-        
-        console.log("eps = " + pc);
+
+		console.log("eps = " + pc);
 
 		// optimization if no states reachable
 		if (pc.length == 0) return false;
 	}
-    
-    for (var i = 0; i < pc.length; i++) {
+
+	for (var i = 0; i < pc.length; i++) {
 		if (pc[i] == this.m) {
 			return true;
 		}
