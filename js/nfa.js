@@ -20,12 +20,19 @@ function NFA(regexp, for_visual, useId) {
 		if (regexp.charAt(i) == '(' || regexp.charAt(i) == '|')
 			ops.push(i);
 		else if (regexp.charAt(i) == ')') {
-			var or = ops.pop();
-
+			var or = ops.pop();           
+            
 			if (regexp.charAt(or) == '|') {
-				lp = ops.pop();
-				this.graph.add({ data: { source: lp, target: or + 1, label: 'ε' } });
-				this.graph.add({ data: { source: or, target: i, label: 'ε' } });
+                ops.push(or);
+                var rp = i;
+                var j = ops.length - 1;
+                for (; regexp[ops[j]] == '|'; --j);
+				lp = ops[j];
+
+                while (regexp[(or = ops.pop())] != '(') {
+                    this.graph.add({ data: { source: or, target: rp, label: 'ε' } });
+                    this.graph.add({ data: { source: lp, target: or + 1, label: 'ε' } });
+                }               
 			}
 			else if (regexp.charAt(or) == '(')
 				lp = or;
@@ -37,8 +44,12 @@ function NFA(regexp, for_visual, useId) {
 			this.graph.add({ data: { source: lp, target: i + 1, label: 'ε' } });
 			this.graph.add({ data: { source: i + 1, target: lp, label: 'ε' } });
 		}
+        
+        if (i < this.m - 1 && regexp.charAt(i + 1) == '+') {
+			this.graph.add({ data: { source: i + 1, target: lp, label: 'ε' } });
+		}
 
-		if (regexp.charAt(i) == '(' || regexp.charAt(i) == '*' || regexp.charAt(i) == ')')
+		if (regexp.charAt(i) == '(' || regexp.charAt(i) == '*' || regexp.charAt(i) == '+' || regexp.charAt(i) == ')')
 			this.graph.add({ data: { source: i, target: i + 1, label: 'ε' } });
 		else if (for_visual && (regexp.charAt(i) != '|'))
 			this.graph.add({ data: { source: i, target: i + 1, label: regexp.charAt(i) } });
