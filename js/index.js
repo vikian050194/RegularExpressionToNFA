@@ -1,46 +1,66 @@
 $(function () {
     $(document).ready(function () {
         var layout = 'circle';
+        var useId = false;
 
         $("button").click(function () {
-            draw();
+            draw(false);
         });
 
-        var resetVisualizationType = function () {
-            $('ul[class="dropdown-menu"] > li').each(function (i, e) {
+        var resetLayoutType = function () {
+            $('#layout > li').each(function (i, e) {
                 $(e).removeClass('active');
             });
         }
-        
-        $('ul[class="dropdown-menu"] > li').each(function (i, e) {
-            console.log($(e).children());
+
+        $('#layout > li').each(function (i, e) {
             $(e).children().click(function (elem) {
-                resetVisualizationType();
+                resetLayoutType();
                 $(e).addClass('active');
                 layout = this.text;
-                draw();
+                draw(true);
+                return false;
+            });
+        });
+
+        var resetNodesType = function () {
+            $('#nodes > li').each(function (i, e) {
+                $(e).removeClass('active');
+            });
+        }
+
+        $('#nodes > li').each(function (i, e) {
+            $(e).children().click(function (elem) {
+                resetNodesType();
+                $(e).addClass('active');
+                useId = i === 0;
+                draw(true);
                 return false;
             });
         });
 
         $('input').keydown(function (e) {
             if (e.keyCode === 13) {
-                draw();
+                draw(false);
             }
         });
 
         $('#regexp').val('(.*AB((C|D*E)F)*G)');
         $('#text').val('AABD');
 
-        function draw() {
+        function draw(justRefresh) {
             var text = $('#text').val();
             var regexp = $('#regexp').val();
             if (text.lenght !== 0 && regexp.lenght !== 0) {
-                var nfa = new NFA(regexp, false);
-                //alert(nfa.Recognize(text));
-                //nfs.graph.nodes()
-                var nfa_vis = new NFA(regexp, true);
-
+                if (!justRefresh) {
+                    var nfa = new NFA(regexp, false, useId);
+                    if (nfa.Recognize(text)) {
+                        alert('Text does belong to the language!')
+                    } else {
+                        alert('Text does NOT belong to the language!');
+                    }
+                }
+                var nfa_vis = new NFA(regexp, true, useId);
                 nfa_vis.graph.layout({
                     name: layout
                 });

@@ -1,9 +1,9 @@
-function NFA(regexp, for_visual) {
+function NFA(regexp, for_visual, useId) {
 	this.regexp = regexp;
 	this.m = regexp.length;
 
 	var ops = new Array();
-	this.graph = new cytoscapeFactory().getInstance();
+	this.graph = new cytoscapeFactory().getInstance(useId);
 
 	//TODO: make lables with letters
 	this.graph.add({ data: { id: 0, label: regexp.charAt(0) }, classes: 'start' });

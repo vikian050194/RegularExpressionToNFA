@@ -2,7 +2,7 @@ function cytoscapeFactory() {
 
 }
 
-cytoscapeFactory.prototype.getInstance = function () {
+cytoscapeFactory.prototype.getInstance = function (useId) {
     var cy = cytoscape({
         container: document.getElementById('graph-area'),
         boxSelectionEnabled: false,
@@ -15,7 +15,7 @@ cytoscapeFactory.prototype.getInstance = function () {
             {
                 selector: 'node',
                 style: {
-                    'content': 'data(label)',
+                    'content': useId ? 'data(id)' :'data(label)',
                     'text-valign': 'center',
                     'text-halign': 'center',
                     'background-color': 'DarkGray',
