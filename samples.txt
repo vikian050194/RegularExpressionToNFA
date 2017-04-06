@@ -1,0 +1,5 @@
+(A|B)(C|D) AC AD BC BD
+A(B|C)*D AD ABD ACD ABCCBD
+(A*|(A*BA*BA*)*) AAA BBAABB BABAAA
+((A*B|AC)D) AABD
+(.*AB((C|D*E)F)*G) 
